@@ -150,24 +150,22 @@ const getAllEmployess = async (req, res) => {
         if (status) {
             query.status = status;
             query.isActive = status === "Active";
-        } else {
-            query.isActive = true;
         }
 
         if (searchkeyword) {
             query.$or = [
                 {
                     employeeName: {
-                        $regex: searchkeyword,
+                        $regex: searchkeyword, 
                         $options: "i"
                     }
                 },
                 {
-                    email: {
-                        $regex: searchkeyword,
-                        $options: "i"
+                    email: { 
+                        $regex: searchkeyword, 
+                        $options: "i" 
                     }
-                }
+                 }
             ];
         }
 
@@ -261,7 +259,7 @@ const updateEmployee = async (req, res) => {
                 department,
                 designation,
                 status,
-                isActive: status === "Active",   
+                isActive: status === "Active",
                 ...(role && { role }),
                 updatedAt: Date.now()
             },
