@@ -1,0 +1,246 @@
+openapi: 3.0.0
+
+info:
+  title: Employee Management API
+  version: 1.0.0
+  description: MERN Employee Management Backend APIs Documentation
+
+servers:
+  - url: http://localhost:5000
+
+components:
+
+  securitySchemes:
+
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+tags:
+  - name: Employee
+
+paths:
+
+  /employee/create:
+
+    post:
+
+      tags:
+        - Employee
+
+      summary: Create Employee
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+
+            schema:
+              type: object
+
+              properties:
+
+                employeeName:
+                  type: string
+                  example: Esakki Raj
+
+                email:
+                  type: string
+                  example: essaki078@gmail.com
+
+                password:
+                  type: string
+                  example: Esakki@123
+
+                role:
+                  type: string
+                  example: employee
+
+                department:
+                  type: string
+                  example: IT
+
+                designation:
+                  type: string
+                  example: Team Lead
+
+                status:
+                  type: string
+                  example: Active
+
+                joiningDate:
+                  type: string
+                  example: "2026-06-25"
+
+      responses:
+        "201":
+          description: Employee created successfully
+
+  /employee/login:
+
+    post:
+
+      tags:
+        - Employee
+
+      summary: Employee Login
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+
+            schema:
+              type: object
+
+              properties:
+
+                email:
+                  type: string
+                  example: essaki078@gmail.com
+
+                password:
+                  type: string
+                  example: Esakki@123
+
+      responses:
+        "200":
+          description: Login successful
+
+  /employee/all_employees:
+
+    get:
+
+      tags:
+        - Employee
+
+      summary: Get All Employees
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - in: query
+          name: searchkeyword
+          schema:
+            type: string
+
+        - in: query
+          name: department
+          schema:
+            type: string
+
+        - in: query
+          name: status
+          schema:
+            type: string
+
+        - in: query
+          name: page
+          schema:
+            type: integer
+            example: 1
+
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            example: 10
+
+      responses:
+        "200":
+          description: Employee list fetched successfully
+
+  /employee/update_employee/{id}:
+
+    put:
+
+      tags:
+        - Employee
+
+      summary: Update Employee
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          example: 6a3cea5346fa74aa1cd67ab0
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+
+            schema:
+              type: object
+
+              properties:
+
+                employeeName:
+                  type: string
+                  example: Esakki Raj
+
+                department:
+                  type: string
+                  example: IT
+
+                designation:
+                  type: string
+                  example: Senior Developer
+
+                status:
+                  type: string
+                  example: Active
+
+      responses:
+        "200":
+          description: Employee updated successfully
+
+  /employee/delete_employee/{id}:
+
+    get:
+
+      tags:
+        - Employee
+
+      summary: Delete Employee
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          example: 6a3cea5346fa74aa1cd67ab0
+
+      responses:
+        "200":
+          description: Employee deleted successfully
+
+  /employee/dashboard:
+
+    get:
+
+      tags:
+        - Employee
+
+      summary: Dashboard Analytics
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        "200":
+          description: Dashboard statistics fetched successfully
